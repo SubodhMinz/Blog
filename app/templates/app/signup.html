@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% block title %}Signup{% endblock title %}
+{% block signup %}
+<div class="container">
+    <div class="signup">
+        <h1>Signup</h1> <br>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            {% for fm in form %}
+            <div>
+                <p>{{fm.label_tag}} </p>
+                {{fm}}
+                <small class="error">{{fm.errors|striptags}}</small><br> <br>
+            </div>
+            {% endfor %}
+            <input class="submit" type="submit" value="SignUp">
+            
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <p class="error">{{error}}</p>
+            {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock signup %}

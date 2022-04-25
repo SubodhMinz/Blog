@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">
+                <h1><a href="{% url 'home' %}">Blog</a></h1>
+            </div>
+            <div class="nav-items">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'blogcreate' %}">Create Blog</a></li>
+                        <li><a href="{% url 'profile' %}">{% if request.user %} {{request.user}} {% else %}Profile{% endif %}></a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'signup' %}">Signup</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    {% block home %}{% endblock home %}
+    {% block contact %}{% endblock contact %}
+    {% block signup %}{% endblock signup %}
+    {% block login %}{% endblock login %}
+    {% block profile %}{% endblock profile %}
+    {% block blog %}{% endblock blog %}
+    {% block blog-detail %}{% endblock blog-detail %}
+    {% block Edit-blog %}{% endblock Edit-blog %}
+    
+    <footer class="footer">
+
+    </footer>
+</body>
+</html>

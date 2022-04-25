@@ -1,0 +1,31 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block home %}
+<div class="home container">
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    <div class="cards">
+        {% for blog in blogs %}
+            <div class="card">
+                <img src="{{blog.photo.url}}" alt="img">
+                <div class="card-itmes">
+                    <h1>{{blog.title}}</h1>
+                    <h3>Author : {{blog.usr|capfirst}}</h3>
+                    <h3>Category : {{blog.category}}</h3>
+                    <h3>{{blog.date}}</h3>
+                    <p>{{blog.description|truncatewords:9}}
+                        <a class='read-more' style="color:orange;" href="{% url 'blog-detail' blog.id %}">read more...</a></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock home %}
+

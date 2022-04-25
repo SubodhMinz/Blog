@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+{% block title %}Profile{% endblock title %}
+
+{% block profile %}
+<div class="container">
+    <div class="profile">
+        <div class="left">
+            <ul>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'passchange' %}">Change Password</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="right">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% for fm in form %}
+                    <div class="form-group mb-3">
+                        <p>{{fm.label_tag}} </p>
+                        {{fm}} 
+                        <small class="text-denger">{{fm.errors|striptags}}</small> <br><br>
+                    </div>
+                {% endfor %}
+                <input class="submit" type="submit" value="Save">
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock profile %}

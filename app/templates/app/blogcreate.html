@@ -1,0 +1,35 @@
+{% extends 'app/base.html' %}
+{% block title %}Blog{% endblock title %}
+
+{% block blog %}
+<div class="container">
+    <div class="blog">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for fm in form %}
+            <div class="form-group mb-3">
+                <p>{{fm.label_tag}} </p>
+                {{fm}} 
+                <small class="text-denger">{{fm.errors|striptags}}</small> <br><br>
+            </div>
+            {% endfor %}
+            <input class="submit" type="submit" value="Submit">
+        </form>
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock blog %}

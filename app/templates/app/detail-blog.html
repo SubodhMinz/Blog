@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+{% block title %}Blog{% endblock title %}
+
+{% block blog-detail %}
+    <div class="container">
+        <div class="blog-detail">
+            <div class="blog-img">
+                <img src="{{blog.photo.url}}" alt="">
+                <div class="modi">
+                    {% if blog.usr == request.user %}
+                    <a href="{% url 'edit-blog' blog.id %}">Edit</a>
+                    <form action="{% url 'delete-blog' blog.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete">
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="detail-blog-cont">
+                <h1>{{blog.title}}</h1>
+                <h3>Author : {{blog.usr|capfirst}}</h3>
+                <h3>Category : {{blog.category}}</h3>
+                <h3>{{blog.date}}</h3>
+                <p>{{blog.description}}</p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock blog-detail %}
